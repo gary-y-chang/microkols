@@ -1,0 +1,260 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int      @id @default(autoincrement())
+  account_id    String?  @unique @db.VarChar(64)    // coming from 3rd-party(e.g. Google, FB) sign-in successfully
+  auth_by       String?  @db.VarChar(16)            // 3rd-party(e.g. Google, FB, IG ....)
+  email         String   @unique @db.VarChar(64)    // coming from 3rd-party(e.g. Google, FB) sign-in or input by user
+  name          String   @db.VarChar(128)
+  type          String   @db.VarChar(32)            // BRAND / KOL / ADMIN
+  country_code  String?  @db.VarChar(6)             // +852 / +886 / +86
+  phone         String?  @db.VarChar(16)
+  address       String?  @db.VarChar(64)
+  company_name  String?  @db.VarChar(32)  
+  password      String?  @db.VarChar(128)          // will be empty by 3rd-party sign-in
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+  active        Boolean  @default(false)
+  profile       KOL_Profile?
+  campaigns     Campaign[]
+}
+
+model KOL_Profile {
+  id                  Int        @id @default(autoincrement())
+  stage_name          String?    @db.VarChar(128)
+  style_type          String     @db.VarChar(128)    // Sys_KOL_Style_Type, e.g. Vlogger, Beauty Blogger, Sports Lover ... 
+  age                 Int?       @db.SmallInt
+  gender              String?    @db.Char(1)
+  bio                 String?                        // 'About me' on profile page
+  birthdate           DateTime?  @db.Date
+  img                 String     @db.VarChar(256)
+  region              String     @db.VarChar(64)    // e.g. Hong Kong, Singapore, Taiwan ...    
+  is_dummy            Boolean    @default(true)
+  is_verified         Boolean    @default(false)
+  user                User       @relation(fields: [user_id], references: [id])
+  user_id             Int        @unique
+  platforms           KOL_Platform[]
+  campaigns_invited   Campaign_KOL_Invitation[]
+}
+
+model KOL_Platform {
+  id                Int           @id @default(autoincrement())
+  plat_code         String        @db.VarChar(32)        // Sys_Media_Platform, YT: YouTube, IG: Instagram, FB: Facebook, ... 
+  plat_name         String?       @db.VarChar(128) 
+  link              String?       @db.VarChar(512)
+  is_sync           Boolean       @default(false)
+  plat_identity     String?       @db.VarChar(128)    //the identity (name of account) on tha platform   
+  access_token      String?       @db.VarChar(512)    //the access token authorized from the social media platform 
+  followers_count   Int           @default(0)
+  views_count       Int           @default(0)
+  posts_count       Int           @default(0)
+  audience_gender   Json?         // {"Female": 43, "Male": 57}
+  audience_age      Json?         // {"18-24": 15, "25-34": 35, "35-44": 30, "45-54": 20}
+  audience_region   Json?         // {"Hong Kong": 26, "China": 57, "Taiwan": 26, "Singapore": 12, "Others": 7} 
+  kol_profile       KOL_Profile   @relation(fields: [kol_profile_id], references: [id]) 
+  kol_profile_id    Int           
+  plat_posts        Platform_Post[]
+}
+
+model Platform_Post {
+  id               Int            @id @default(autoincrement())
+  reach            Int            @default(0)  // reach count
+  engagement       Int            @default(0)  // engagement count
+  caption          String?        @db.VarChar(256)
+  content          String?        @db.Text
+  link             String         @db.VarChar(512)
+  posted_at        DateTime       @db.Date
+  img              String?        @db.VarChar(256)
+  selected         Boolean        @default(false)  
+  platform         KOL_Platform   @relation(fields: [platform_id], references: [id])     
+  platform_id      Int            
+}
+
+model Campaign {
+  id                 Int            @id @default(autoincrement())
+  brand_name         String?        @db.VarChar(64)
+  brand_logo         String?        @db.VarChar(256)
+  objectives         Int[]          // the four target number of percentage e.g [20%, 15%, 35%, 30%]   
+  platforms          String[]       // e.g. FB,IG 
+  interests          String[]        // e.g. Style&Fashion,Entertainment,Sports,Beauty   
+  type               String?         @db.VarChar(32)   // Sys_Campaign_Type, e.g. promotion, advertising, distribution, merchandising, pricing  ....etc 
+  status             String?         @db.VarChar(32) @default("draft")  // Sys_Campaign_Status, e.g. active, draft, suspending, archived 
+  budget             Decimal?        @db.Decimal(16,2)
+  start_at           DateTime?       @db.Date
+  end_at             DateTime?       @db.Date
+  invitation_end_at  DateTime?       @db.Date
+  title              String?         @db.VarChar(128)  
+  description        String?  
+  tagline            String?         @db.VarChar(256)
+  img_banner         String?         @db.VarChar(256)     
+  attention_needed   Boolean?        @default(true)
+  region             String?
+  terms_accepted     Boolean?        @default(false)   
+  applicants         Int?            @default(0)
+  kol_required       Int?            @default(1)    // the number of influencer needed for the campaign
+  creator            User            @relation(fields: [creator_id], references: [id])
+  creator_id         Int            
+  created_at         DateTime        @default(now())
+  updated_at         DateTime        @updatedAt
+  kol_invitations    Campaign_KOL_Invitation[]
+  products           Campaign_Product[] 
+  events             Campaign_Event[]
+  tasks              Campaign_Task[]
+  kol_types          Campaign_KOL_Type[]
+  dos_donts          Campaign_Dos_Donts[]  
+}
+
+model Campaign_KOL_Invitation {
+  campaign          Campaign       @relation(fields: [camp_id], references: [id])
+  camp_id           Int
+  kol_profile       KOL_Profile    @relation(fields: [profile_id], references: [id])
+  profile_id        Int
+  plat_code         String         @db.VarChar(32) @default("FB") 
+  followers_count   Int            @default(3200)
+  @@id(name: "invitation_id", [camp_id, profile_id])
+}
+
+model Campaign_Product {
+  id          Int         @id @default(autoincrement())
+  type        Int         @db.SmallInt @default(1)    // 1: product, 0: service
+  name        String      @db.VarChar(64)
+  ref_url     String?     @db.VarChar(256)
+  value       Decimal     @db.Decimal(16,2)
+  remark      String      
+  img         String?     @db.VarChar(256)
+  sponsored   Boolean     @default(false)
+  campaign    Campaign    @relation(fields: [camp_id], references: [id])
+  camp_id     Int
+}
+
+model Campaign_Event {
+  id              Int          @id @default(autoincrement())
+  title           String
+  event_date      DateTime
+  description     String
+  ref_url         String?      @db.VarChar(256)
+  img             String?      @db.VarChar(256)
+  campaign        Campaign     @relation(fields: [camp_id], references: [id])
+  camp_id         Int
+}
+
+model Campaign_Task {
+  id                Int         @id @default(autoincrement())
+  plat_code         String      @db.VarChar(8)   // e.g. YT, IG, FB   
+  post_type         String      @db.VarChar(16)   // e.g. story, video, blog ....  
+  submit_date       DateTime
+  quantity          Int         @db.SmallInt  @default(1)
+  brand_mention     String?     @db.VarChar(128)
+  brand_hashtag     String?     @db.VarChar(128)
+  campaign_hashtag  String?     @db.VarChar(128)
+  suggest_content   String?     @db.VarChar(512)
+  post_request      String
+  img               String?     @db.VarChar(256)
+  campaign          Campaign    @relation(fields: [camp_id], references: [id])
+  camp_id           Int
+}
+
+model Campaign_KOL_Type {
+  id              Int           @id @default(autoincrement())
+  plat_code       String        @db.VarChar(8)   // e.g. YT, IG, FB   
+  age_range       Int[]         @default([20, 55]) 
+  follower_range  Int[]         @default([10, 10000])
+  pay_range       Decimal[]     @db.Decimal(16,2)  @default([0.00, 1000.00])
+  kol_numbers     Int           @db.SmallInt
+  gender          String        @db.VarChar(16)   // e.g. M, F, N for No-Specific   
+  request         String?        
+  campaign        Campaign      @relation(fields: [camp_id], references: [id])
+  camp_id         Int
+}
+
+model Campaign_Dos_Donts {
+  id           Int          @id @default(autoincrement())
+  type         Int          @db.SmallInt @default(1)    // 1: dos, 0: donts    
+  request      String       @db.VarChar(128)
+  img          String?      @db.VarChar(256)
+  campaign     Campaign     @relation(fields: [camp_id], references: [id])
+  camp_id      Int
+}
+
+model Account_Sync {
+  user_id      Int
+  platform_id  Int
+  platform     String       @db.VarChar(32)        // Sys_Media_Platform, YT: YouTube, IG: Instagram, FB: Facebook, ...   
+  access_token String
+  account_id   String
+  account_name String
+  active       Boolean      @default(false) 
+  @@id(name: "account_sync_id", [user_id, platform_id])
+}
+
+model Campaign_Apply {
+  cmpgn_id       Int
+  user_id        Int        // user id of the influencer (applicant) 
+  apply_date     DateTime   @default(now())
+  apply_msg      String?    @db.Text     
+  approve_date   DateTime?  
+  selected       Boolean    @default(false) 
+  status         Int[]      @default([1,0,0,0,0]) // [0,0,0,0,0]= open, [-1,0,0,0,0]= declined, [1,0,0,0,0]= applicant list(applied), [1,1,0,0,0]= ongoing(approved), [1,1,1,0,0]= post draft submitted, [1,1,1,1,0]= post approved, [1,1,1,1,1]= post launched
+  closed         Boolean    @default(false)       // credits received, KOL be paid
+  @@id(name: "campaign_apply_id", [cmpgn_id, user_id])
+}
+
+model Post_Job {
+  author_id     Int                            // the user_id of a influencer
+  cmpgn_id      Int                            // the campaign id working on 
+  description   String?      @db.VarChar(512)  // the title of a post
+  content       String?      @db.Text          // string from rich editor  
+  photos        String[]                       // up to 10 image urls 
+  approved      Boolean      @default(false)
+  comment_1     String?      @db.Text          // brand's comment for content
+  comment_2     String?      @db.Text          // brand's comment for photos
+  launch_link   String?      @db.VarChar(256)  // the social media url of the post launched 
+  launch_image  String?      @db.VarChar(256)  // the screenshot of the post launched
+  launched      Boolean      @default(false)
+  created_at    DateTime     @default(now())
+  updated_at    DateTime     @updatedAt     
+  procedure     Int[]        @default([1,0,0,0,0,0])  // [1,0,0,0,0,0] ... [1,1,0,0,0,0] ... -> [1,1,1,1,1,1]
+  @@id(name: "post_job_id", [author_id, cmpgn_id])
+}
+
+model Notification {
+  id             Int          @id @default(autoincrement())
+  receiver_id    Int
+  datetime       DateTime     @default(now())
+  sender_name    String       @db.VarChar(128)  // name of sender
+	sender_icon    String       @db.VarChar(256)  // sender's icon URL",
+  message        String       @db.VarChar(512)
+  is_read        Boolean      @default(false) 
+}
+
+model Transaction {
+  id           String       @id @db.VarChar(64) // [T|P|W|E|S|R (mapping to txn type capital)]-[yyyymmdd]-[User_ID]-[6-digit random]
+  user_id      Int                              // the user id related to this txn, could be payer or payee
+  type         String       @db.VarChar(16)     //  (T: top-up, W: withdraw,, P: payout, E: escrow, S: spending, R: reward)
+  amount       Decimal      @db.Decimal(16,2)   // the amount of credit, could be + or -
+  note         String?      @db.VarChar(128)    // text description if necessary, can be PayPal's Transaction ID, such as "4UH49084DR861553R" 
+  camp_id      Int?                             //this txn is made because of a campaign, possibly no
+  account_no   Int                              //the credit account to which is related 
+  created_at   DateTime     @default(now())         
+}
+
+model Credit_Account {
+  account_no      Int          @id @default(autoincrement())
+  owner_id        Int                               // the user_id, 0 is for system admin
+  balance         Decimal      @db.Decimal(16,2) @default(0) 
+  total_top_up    Decimal?     @db.Decimal(16,2)   // for brand
+  total_expense   Decimal?     @db.Decimal(16,2)   // for brand
+  total_reward    Decimal?     @db.Decimal(16,2)   // for influencer
+  total_withdraw  Decimal?     @db.Decimal(16,2)   // for influencer
+  created_at      DateTime     @default(now())  
+  updated_at      DateTime     @updatedAt
+}
+

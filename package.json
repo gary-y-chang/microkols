@@ -1,0 +1,52 @@
+{
+  "name": "starnet-kol",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn src/app.ts",
+    "build": "tsc",
+    "serve": "node dist/app.js",
+    "swagger-autogen": "ts-node src/swagger.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.5",
+    "@types/node": "^20.10.6",
+    "@types/string-template": "^1.0.6",
+    "@types/swagger-ui-express": "^4.1.6",
+    "concurrently": "^8.2.2",
+    "dotenv-cli": "^7.3.0",
+    "prisma": "^5.6.0",
+    "swagger-autogen": "^2.23.7",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.3.2"
+  },
+  "dependencies": {
+    "@duplexsi/multer-storage-google-cloud": "^1.1.1",
+    "@google-cloud/storage": "^7.7.0",
+    "@prisma/client": "^5.6.0",
+    "@types/multer": "^1.4.11",
+    "@types/passport-facebook": "^3.0.3",
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "ioredis": "^5.3.2",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "node-mailjet": "^6.0.5",
+    "passport": "^0.7.0",
+    "passport-facebook": "^3.0.0",
+    "socket.io": "^4.7.4",
+    "string-template": "^1.0.0",
+    "swagger-ui-express": "^5.0.0"
+  }
+}

@@ -1,0 +1,2960 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Starnet API",
+    "description": ""
+  },
+  "servers": [
+    {
+      "url": "https://dev.starnet.ai/api.staging",
+      "description": ""
+    }
+  ],
+  "basePath": "",
+  "tags": [
+    {
+      "name": "",
+      "description": ""
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/users/sign-up": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "409": {
+            "description": "Conflict"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "example": "any"
+                  },
+                  "email": {
+                    "example": "any"
+                  },
+                  "country_code": {
+                    "example": "any"
+                  },
+                  "phone": {
+                    "example": "any"
+                  },
+                  "passwd": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/social-signin": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "example": "any"
+                  },
+                  "acct_id": {
+                    "example": "any"
+                  },
+                  "email": {
+                    "example": "any"
+                  },
+                  "auth_by": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/sign-in": {
+      "post": {
+        "tags": [
+          "User",
+          "Brand"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "example": "any"
+                  },
+                  "passwd": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/sign-up/confirm": {
+      "post": {
+        "tags": [
+          "User",
+          "Brand"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "crypted_email": {
+                    "example": "any"
+                  },
+                  "confirm_code": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/forget-password": {
+      "post": {
+        "tags": [
+          "User",
+          "Brand"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/reset-password": {
+      "post": {
+        "tags": [
+          "User",
+          "Brand"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "new_password": {
+                    "example": "any"
+                  },
+                  "token": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/refresh-token": {
+      "post": {
+        "tags": [
+          "User",
+          "Brand"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "refresh_token": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/change-password/{id}": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "old_password": {
+                    "example": "any"
+                  },
+                  "new_password": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/change-phone/{id}": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "new_phone": {
+                    "example": "any"
+                  },
+                  "new_country_code": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/account-details/{id}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/users/test/{user_id}/{campaign_id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "campaign_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/kols/profile/create": {
+      "post": {
+        "tags": [
+          "KOL"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "stage_name": {
+                    "example": "any"
+                  },
+                  "style_type": {
+                    "example": "any"
+                  },
+                  "bio": {
+                    "example": "any"
+                  },
+                  "birthdate": {
+                    "example": "any"
+                  },
+                  "age": {
+                    "example": "any"
+                  },
+                  "gender": {
+                    "example": "any"
+                  },
+                  "img": {
+                    "example": "any"
+                  },
+                  "region": {
+                    "example": "any"
+                  },
+                  "user_id": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/kols/profile/personal-info": {
+      "post": {
+        "tags": [
+          "KOL"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "example": "any"
+                  },
+                  "country_code": {
+                    "example": "any"
+                  },
+                  "phone": {
+                    "example": "any"
+                  },
+                  "region": {
+                    "example": "any"
+                  },
+                  "birthdate": {
+                    "example": "any"
+                  },
+                  "user_id": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/kols/profile/name_style": {
+      "post": {
+        "tags": [
+          "KOL"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "example": "any"
+                  },
+                  "name": {
+                    "example": "any"
+                  },
+                  "style_type": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/kols/profile/avatar": {
+      "post": {
+        "tags": [
+          "KOL"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "base64img": {
+                    "example": "any"
+                  },
+                  "user_id": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/kols/profile/about-me": {
+      "post": {
+        "tags": [
+          "KOL"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "example": "any"
+                  },
+                  "about_me": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/kols/profile/social-media-links": {
+      "post": {
+        "tags": [
+          "KOL"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "example": "any"
+                  },
+                  "platforms": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/kols/campaign/apply": {
+      "post": {
+        "tags": [
+          "KOL"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "example": "any"
+                  },
+                  "campaign_id": {
+                    "example": "any"
+                  },
+                  "introduction": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/kols/postjob/photo/remove": {
+      "post": {
+        "tags": [
+          "KOL"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "example": "any"
+                  },
+                  "campaign_id": {
+                    "example": "any"
+                  },
+                  "photo_urls": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/kols/postjob/launch": {
+      "post": {
+        "tags": [
+          "KOL"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "file",
+            "in": "formData",
+            "required": true,
+            "description": "the screenshot of the launched post",
+            "schema": {
+              "type": "file"
+            }
+          },
+          {
+            "name": "post_link",
+            "in": "formData",
+            "required": true,
+            "description": "The public URL of the launched post",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "campaign_id",
+            "in": "formData",
+            "required": true,
+            "description": "the campaign id of the post launched",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "formData",
+            "required": true,
+            "description": "the author id of this post",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "post_link": {
+                    "example": "any"
+                  },
+                  "campaign_id": {
+                    "example": "any"
+                  },
+                  "user_id": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/kols/suggestions/{campaign_id}": {
+      "get": {
+        "tags": [
+          "KOL"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "campaign_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/kols/syncs/{user_id}": {
+      "get": {
+        "tags": [
+          "KOL"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/kols/sync-off/{platform}/{user_id}": {
+      "patch": {
+        "tags": [
+          "KOL"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "platform",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/kols/profile/{user_id}": {
+      "get": {
+        "tags": [
+          "KOL"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "the User ID of KOL to query."
+          },
+          {
+            "name": "campaign_id",
+            "in": "query",
+            "description": "the Campaign ID to query. If provided, for brand query.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/kols/profile/posts/{platform}/{user_id}": {
+      "get": {
+        "tags": [
+          "KOL"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "platform",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "facebook | instagram"
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "the User ID of KOL"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "current page, default 1",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "description": "items dispayed per page, default 10",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": "start date, format yyyy-mm-dd",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "description": "end date, format yyyy-mm-dd",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/kols/marketplace": {
+      "get": {
+        "tags": [
+          "KOL"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "current page, default 1",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "description": "items dispayed per page, default 10",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "user id of the influencer calling api",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "description": "search keyword in title or description",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "active",
+            "in": "query",
+            "description": "true or false, default true",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/kols/campaigns": {
+      "get": {
+        "tags": [
+          "KOL"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "sign-in user ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "current page, default 1",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "description": "items dispayed per page, default 10",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "status of campaign, default to be 'all'",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/kolCampaigns"
+            }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "description": "search keyword in title or description",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "order_by",
+            "in": "query",
+            "description": "the sorting column, default start-date, can be [budget, start-date, end-date]",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/sortingColumns"
+            }
+          },
+          {
+            "name": "trend",
+            "in": "query",
+            "description": "the sorting direction, default asc, can be [asc, desc]",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/sortingTrend"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/kols/campaign/procedure": {
+      "get": {
+        "tags": [
+          "KOL"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "the Influencer ID of the post",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "campaign_id",
+            "in": "query",
+            "description": "the Campaign ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/kols/profile/posts/select": {
+      "patch": {
+        "tags": [
+          "KOL"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/kolPostSelected"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/kols/test": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/brands/sign-up": {
+      "post": {
+        "tags": [
+          "Brand"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "409": {
+            "description": "Conflict"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "example": "any"
+                  },
+                  "company": {
+                    "example": "any"
+                  },
+                  "email": {
+                    "example": "any"
+                  },
+                  "country_code": {
+                    "example": "any"
+                  },
+                  "phone": {
+                    "example": "any"
+                  },
+                  "passwd": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/brands/campaign/applicants": {
+      "get": {
+        "tags": [
+          "Brand"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "campaign_id",
+            "in": "query",
+            "description": "the Campaign ID to query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "the status of the applicant, default be 'open'",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/campaignApplicants"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "current page, default 1",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "description": "items dispayed per page, default 10",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/brands/campaign/applicant/approve": {
+      "post": {
+        "tags": [
+          "Brand"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "example": "any"
+                  },
+                  "campaign_id": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/brands/campaign/applicant/reject": {
+      "post": {
+        "tags": [
+          "Brand"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "example": "any"
+                  },
+                  "campaign_id": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/brands/campaign/post/review": {
+      "patch": {
+        "tags": [
+          "Brand"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "example": "any"
+                  },
+                  "campaign_id": {
+                    "example": "any"
+                  },
+                  "comment_photo": {
+                    "example": "any"
+                  },
+                  "comment_text": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/brands/campaign/post/approve": {
+      "patch": {
+        "tags": [
+          "Brand"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "example": "any"
+                  },
+                  "campaign_id": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/campaigns/create/objective": {
+      "post": {
+        "tags": [
+          "Campaign"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/campaignObjective"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/campaigns/create/basic-info": {
+      "post": {
+        "tags": [
+          "Campaign"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/campaignBasicInfo"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/campaigns/create/product": {
+      "post": {
+        "tags": [
+          "Campaign"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/campaignProduct"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/campaigns/create/event": {
+      "post": {
+        "tags": [
+          "Campaign"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/campaignEvent"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/campaigns/create/influencer": {
+      "post": {
+        "tags": [
+          "Campaign"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/campaignInfluencer"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/campaigns/create/task": {
+      "post": {
+        "tags": [
+          "Campaign"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/campaignTask"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/campaigns/create/dodont": {
+      "post": {
+        "tags": [
+          "Campaign"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/campaignDoDont"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/campaigns/create/kol-invite": {
+      "post": {
+        "tags": [
+          "Campaign"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/campaignInfluencerInvite"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/campaigns/review/{id}": {
+      "patch": {
+        "tags": [
+          "Campaign"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/campaigns/postjob": {
+      "get": {
+        "tags": [
+          "Campaign"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "the Influencer ID of the post",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "campaign_id",
+            "in": "query",
+            "description": "the Campaign ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/campaigns/postdrafts": {
+      "get": {
+        "tags": [
+          "Campaign"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "campaign_id",
+            "in": "query",
+            "description": "the Campaign ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "approved",
+            "in": "query",
+            "description": "the post draft already approved or not, which default to be false",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "launched",
+            "in": "query",
+            "description": "the post draft already launched or not, which default to be false",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/campaigns/item-count": {
+      "get": {
+        "tags": [
+          "Campaign"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "sign-in user ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/campaigns": {
+      "get": {
+        "tags": [
+          "Campaign"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "sign-in user ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "current page, default 1",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "description": "items dispayed per page, default 10",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "description": "search keyword in title or description",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "the status tab slected, default all, can be [draft, active, suspending, archived]",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/campaignStatus"
+            }
+          },
+          {
+            "name": "order_by",
+            "in": "query",
+            "description": "the sorting column, default start-date, can be [budget, start-date, end-date]",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/sortingColumns"
+            }
+          },
+          {
+            "name": "trend",
+            "in": "query",
+            "description": "the sorting direction, default asc, can be [asc, desc]",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/sortingTrend"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/campaigns/{campaign_id}": {
+      "get": {
+        "tags": [
+          "Campaign"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "campaign_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "the Campaign ID to query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/campaigns/{campaign_id}/{step}": {
+      "get": {
+        "tags": [
+          "Campaign"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "campaign_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "the Campaign ID to query"
+          },
+          {
+            "name": "step",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "name of steps, valid values are 'objectives', 'basicinfo', 'koltypes', 'products', 'events', 'tasks', 'dosdonts', 'kolinvites' "
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/txns": {
+      "get": {
+        "tags": [
+          "Transaction"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/upload/{resource}/{id}": {
+      "post": {
+        "tags": [
+          "Utilities"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "resource",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "file",
+            "in": "formData",
+            "required": true,
+            "description": "Select a file to upload",
+            "schema": {
+              "type": "file"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/upload/posts/{campaign_id}/{user_id}": {
+      "post": {
+        "tags": [
+          "Utilities"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "campaign_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "photos",
+            "in": "formData",
+            "required": false,
+            "description": "Select up to 10 images to upload",
+            "schema": {
+              "type": "file"
+            }
+          },
+          {
+            "name": "title",
+            "in": "formData",
+            "required": false,
+            "description": "The title of the post",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "content",
+            "in": "formData",
+            "required": false,
+            "description": "The content of the post",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "example": "any"
+                  },
+                  "content": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/kols/sync/facebook": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/sync/facebook/callback": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/notifications/unread": {
+      "get": {
+        "tags": [
+          "Notification"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/notifications/read": {
+      "post": {
+        "tags": [
+          "Notification"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "note_ids": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/test/{user_id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "sortingColumns": {
+        "type": "string",
+        "enum": [
+          "budget",
+          "start-date",
+          "end-date"
+        ]
+      },
+      "sortingTrend": {
+        "type": "string",
+        "enum": [
+          "asc",
+          "desc"
+        ]
+      },
+      "kolCampaigns": {
+        "type": "string",
+        "enum": [
+          "all",
+          "pending",
+          "ongoing",
+          "expired",
+          "declined"
+        ]
+      },
+      "campaignStatus": {
+        "type": "string",
+        "enum": [
+          "draft",
+          "active",
+          "suspending",
+          "archived"
+        ]
+      },
+      "campaignApplicants": {
+        "type": "string",
+        "enum": [
+          "open",
+          "applied",
+          "declined",
+          "approved",
+          "post-draft",
+          "post-submitted",
+          "post-launched"
+        ]
+      },
+      "campaignObjective": {
+        "type": "object",
+        "properties": {
+          "campaign_id": {
+            "type": "string",
+            "example": "be empty or existing campaign id e.g. 56"
+          },
+          "platforms": {
+            "type": "array",
+            "example": [
+              "FB",
+              "IG",
+              "YT"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "region": {
+            "type": "string",
+            "example": "Hong Kong"
+          },
+          "interests": {
+            "type": "array",
+            "example": [
+              "Style&Fashion",
+              "Entertainment",
+              "Sports",
+              "Beauty"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "objectives": {
+            "type": "array",
+            "example": [
+              20,
+              15,
+              35,
+              30
+            ],
+            "items": {
+              "type": "number"
+            }
+          },
+          "creator_id": {
+            "type": "number",
+            "example": 72
+          }
+        }
+      },
+      "campaignBasicInfo": {
+        "type": "object",
+        "properties": {
+          "campaign_id": {
+            "type": "string",
+            "example": "be empty or existing campaign id e.g. 56"
+          },
+          "img_banner": {
+            "type": "string",
+            "example": "url of this image"
+          },
+          "title": {
+            "type": "string",
+            "example": "This is a title"
+          },
+          "tagline": {
+            "type": "string",
+            "example": "#line-1#line-2#line-3"
+          },
+          "description": {
+            "type": "string",
+            "example": "blablablablabla"
+          },
+          "budget": {
+            "type": "number",
+            "example": 29000
+          },
+          "start_at": {
+            "type": "string",
+            "example": "2024-01-15"
+          },
+          "end_at": {
+            "type": "string",
+            "example": "2024-04-25"
+          },
+          "invitation_end_at": {
+            "type": "string",
+            "example": "2024-04-10"
+          },
+          "brand_name": {
+            "type": "string",
+            "example": "no name"
+          },
+          "brand_logo": {
+            "type": "string",
+            "example": "url of this logo image"
+          },
+          "creator_id": {
+            "type": "number",
+            "example": 72
+          }
+        }
+      },
+      "campaignProduct": {
+        "type": "object",
+        "properties": {
+          "campaign_id": {
+            "type": "number",
+            "example": 56
+          },
+          "required": {
+            "type": "boolean",
+            "example": true
+          },
+          "products": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "be empty or existing product id e.g. 14"
+                },
+                "type": {
+                  "type": "string",
+                  "example": "0:service | 1:product"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "the name of this"
+                },
+                "ref_url": {
+                  "type": "string",
+                  "example": "https://aaabbbb.derr.fd.com"
+                },
+                "remark": {
+                  "type": "string",
+                  "example": "extra memo notes"
+                },
+                "value": {
+                  "type": "number",
+                  "example": 5005.99
+                },
+                "sponsored": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "img": {
+                  "type": "string",
+                  "example": "url of this image"
+                }
+              }
+            }
+          }
+        }
+      },
+      "campaignEvent": {
+        "type": "object",
+        "properties": {
+          "campaign_id": {
+            "type": "number",
+            "example": 56
+          },
+          "required": {
+            "type": "boolean",
+            "example": true
+          },
+          "events": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "be empty or existing event id e.g. 11"
+                },
+                "title": {
+                  "type": "string",
+                  "example": "the title of this event"
+                },
+                "event_date": {
+                  "type": "string",
+                  "example": "2024-03-15"
+                },
+                "event_time": {
+                  "type": "string",
+                  "example": "16:10:30"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "somethin to be added here"
+                },
+                "img": {
+                  "type": "string",
+                  "example": "url of this image"
+                },
+                "ref_url": {
+                  "type": "string",
+                  "example": "https://reference_site"
+                }
+              }
+            }
+          }
+        }
+      },
+      "campaignInfluencer": {
+        "type": "object",
+        "properties": {
+          "campaign_id": {
+            "type": "number",
+            "example": 56
+          },
+          "kol_types": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "be empty or existing event id e.g. 11"
+                },
+                "age_range": {
+                  "type": "array",
+                  "example": [
+                    18,
+                    28
+                  ],
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "follower_range": {
+                  "type": "array",
+                  "example": [
+                    1000,
+                    15000
+                  ],
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "gender": {
+                  "type": "string",
+                  "example": "M"
+                },
+                "kol_numbers": {
+                  "type": "number",
+                  "example": 3
+                },
+                "pay_range": {
+                  "type": "array",
+                  "example": [
+                    30000,
+                    100000
+                  ],
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "plat_code": {
+                  "type": "string",
+                  "example": "FB | IG | YT"
+                },
+                "request": {
+                  "type": "string",
+                  "example": "something to require"
+                }
+              }
+            }
+          }
+        }
+      },
+      "campaignTask": {
+        "type": "object",
+        "properties": {
+          "campaign_id": {
+            "type": "number",
+            "example": 56
+          },
+          "tasks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "be empty or existing task id e.g. 11"
+                },
+                "brand_hashtag": {
+                  "type": "string",
+                  "example": "#tag1#tag2#tag3"
+                },
+                "brand_mention": {
+                  "type": "string",
+                  "example": "mentioned about blablabla"
+                },
+                "campaign_hashtag": {
+                  "type": "string",
+                  "example": "#tag1#tag2"
+                },
+                "img": {
+                  "type": "string",
+                  "example": "url of this image"
+                },
+                "plat_code": {
+                  "type": "string",
+                  "example": "FB | IG | YT"
+                },
+                "post_request": {
+                  "type": "string",
+                  "example": "some special requirements"
+                },
+                "post_type": {
+                  "type": "string",
+                  "example": "e.g. story, video, blog"
+                },
+                "quantity": {
+                  "type": "number",
+                  "example": 30
+                },
+                "submit_date": {
+                  "type": "string",
+                  "example": "2024-02-15"
+                },
+                "submit_time": {
+                  "type": "string",
+                  "example": "18:10:30"
+                },
+                "suggest_content": {
+                  "type": "string",
+                  "example": "contents suggested"
+                }
+              }
+            }
+          }
+        }
+      },
+      "campaignDoDont": {
+        "type": "object",
+        "properties": {
+          "campaign_id": {
+            "type": "number",
+            "example": 56
+          },
+          "dodonts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "be empty or existing dodont id e.g. 11,"
+                },
+                "type": {
+                  "type": "string",
+                  "example": "1:dos | 0:donts"
+                },
+                "request": {
+                  "type": "string",
+                  "example": "do this action"
+                },
+                "img": {
+                  "type": "string",
+                  "example": "url of this image"
+                }
+              }
+            }
+          }
+        }
+      },
+      "campaignInfluencerInvite": {
+        "type": "object",
+        "properties": {
+          "campaign_id": {
+            "type": "number",
+            "example": 15
+          },
+          "kolinvites": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "profile_id": {
+                  "type": "string",
+                  "example": "id of profile of a kol"
+                },
+                "platform_code": {
+                  "type": "string",
+                  "example": "FB, IG, or ..other social media"
+                },
+                "follower_count": {
+                  "type": "string",
+                  "example": "number of followers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "kolPostSelected": {
+        "type": "object",
+        "properties": {
+          "posts_selected": {
+            "type": "array",
+            "example": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "items": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}
